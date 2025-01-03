@@ -4,11 +4,22 @@ const Boom = require('@hapi/boom');
 const qrcode = require('qrcode-terminal'); // Add qrcode-terminal
 const OpenAI = require('openai');
 require('dotenv').config();
-
+const express = require('express')
+const app =express()
 // Initialize OpenAI
 const openai = new OpenAI({
     apiKey: process.env.API_KEY
 });
+
+
+
+
+app.get('/',(req,res)=>{
+    res.send('Welcome To Our Api')
+})
+
+
+
 
 // Generate a response from OpenAI
 async function generateResponse(prompt) {
@@ -100,3 +111,7 @@ async function connectToWhatsApp() {
 
 // Run WhatsApp connection on app startup
 connectToWhatsApp();
+
+app.listen(3000,()=>{
+    console.log(`listining on port 3000`)
+})
