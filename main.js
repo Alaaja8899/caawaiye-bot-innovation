@@ -6,6 +6,8 @@ const OpenAI = require('openai');
 require('dotenv').config();
 const express = require('express')
 const app =express()
+const path = require('path');
+const authInfoPath = path.join(__dirname, 'auth_info');
 // Initialize OpenAI
 const openai = new OpenAI({
     apiKey: process.env.API_KEY
@@ -63,7 +65,7 @@ async function generateResponse(prompt) {
 
 // Load auth state (creds and keys)
 async function connectToWhatsApp() {
-    const { state, saveCreds } = await useMultiFileAuthState('./auth_info');  // Save creds in the 'auth_info' folder
+    const { state, saveCreds } = await useMultiFileAuthState(authInfoPath);  // Save creds in the 'auth_info' folder
 
     const sock = makeWASocket({
         auth: state,
